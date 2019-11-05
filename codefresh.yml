@@ -1,0 +1,27 @@
+version: "1.0"
+steps:
+  main_clone:
+    title: Cloning main repository...
+    type: git-clone
+    repo: ${{CF_REPO_OWNER}}/${{CF_REPO_NAME}}
+    revision: ${{CF_REVISION}}
+  BuildingDockerImage:
+    title: Building Docker Image
+    type: build
+    image_name: codefreshplugins/cfstep-helmfile
+    working_directory: ./
+    dockerfile: Dockerfile
+    build_arguments:
+      - HELM_VERSION=2.14.3
+      - HELMFILE_VERSION=0.90.2
+  PushingToDockerRegistry:
+    title: Pushing to Docker Registry
+    type: push
+    candidate: ${{BuildingDockerImage}}
+    tags:
+      - 0.90.2
+    registry: dockerhub
+    when:
+      branch:
+        only:
+          - master
