@@ -12,14 +12,16 @@ steps:
     working_directory: ./
     dockerfile: Dockerfile
     build_arguments:
-      - HELM_VERSION=2.14.3
-      - HELMFILE_VERSION=0.90.2
+      - HELM_VERSION=${{HELM_VERSION}}
+      - HELMFILE_VERSION=${{HELMFILE_VERSION}}
+      - HELM_DIFF_VERSION=${{HELM_DIFF_VERSION}}
+      - HELM_SECRETS_VERSION=${{HELM_SECRETS_VERSION}}
   PushingToDockerRegistry:
     title: Pushing to Docker Registry
     type: push
     candidate: ${{BuildingDockerImage}}
     tags:
-      - 0.90.2
+      - ${{HELMFILE_VERSION}}
     registry: dockerhub
     when:
       branch:
