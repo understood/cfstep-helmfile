@@ -7,8 +7,8 @@ def parse(string):
     d = {'true': True, 'false': False, 'True': True, 'False': False}
     return d.get(string, string)
 
-def run_command(helmfile_command):
-    proc = subprocess.Popen(helmfile_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+def run_command(helmfile_command, working_directory):
+    proc = subprocess.Popen(helmfile_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, cwd=working_directory)
     output = proc.communicate()
     print(b''.join(output).strip().decode())
     if proc.returncode != 0:
@@ -19,6 +19,7 @@ def main():
     # Command List Executed in Order Provided
     
     commands = os.getenv('COMMANDS')
+    working_directory = os.getenv('WORKING_DIRECTORY')
 
     # Global Options
 
@@ -100,8 +101,7 @@ def main():
         helmfile_command = " ".join([helmfile_command, command])
         if command_ps:
             helmfile_command = " ".join([helmfile_command, command_ps])
-        print(f'Executing Command: {helmfile_command}')
-        run_command(helmfile_command)
+        run_command(helmfile_command, working_directory)
 
 if __name__ == "__main__":
     main()
