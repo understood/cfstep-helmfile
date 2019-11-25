@@ -60,13 +60,13 @@ spec:
                 "description": "Version of helmfile binary",
                 "default": "3.0.0",
                 "enum": [ "2.14.3", "3.0.0" ]
-            },    
+            },
             "HELMFILE_VERSION": {
                 "type": "string",
                 "description": "Version of helmfile binary",
-                "default": "0.90.7",
-                "enum": [ "0.90.2", "0.90.7" ]
-            },           
+                "default": "0.93.2",
+                "enum": [ "0.90.2", "0.90.7", "0.93.2" ]
+            },
             "HELM_BINARY": {
                 "type": "string",
                 "description": "path to helm binary",
