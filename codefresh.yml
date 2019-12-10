@@ -5,23 +5,45 @@ steps:
     type: git-clone
     repo: ${{CF_REPO_OWNER}}/${{CF_REPO_NAME}}
     revision: ${{CF_REVISION}}
-  BuildingDockerImage:
+  BuildingDockerImageHelm2:
     title: Building Docker Image
     type: build
     image_name: codefreshplugins/cfstep-helmfile
     working_directory: ./
     dockerfile: Dockerfile
     build_arguments:
-      - HELM_VERSION=${{HELM_VERSION}}
+      - HELM_VERSION=2.14.3
       - HELMFILE_VERSION=${{HELMFILE_VERSION}}
       - HELM_DIFF_VERSION=${{HELM_DIFF_VERSION}}
       - HELM_SECRETS_VERSION=${{HELM_SECRETS_VERSION}}
-  PushingToDockerRegistry:
+  BuildingDockerImageHelm3:
+    title: Building Docker Image
+    type: build
+    image_name: codefreshplugins/cfstep-helmfile
+    working_directory: ./
+    dockerfile: Dockerfile
+    build_arguments:
+      - HELM_VERSION=3.0.0
+      - HELMFILE_VERSION=${{HELMFILE_VERSION}}
+      - HELM_DIFF_VERSION=${{HELM_DIFF_VERSION}}
+      - HELM_SECRETS_VERSION=${{HELM_SECRETS_VERSION}}
+  PushingHelm2ToDockerRegistry:
     title: Pushing to Docker Registry
     type: push
-    candidate: ${{BuildingDockerImage}}
+    candidate: ${{BuildingDockerImageHelm2}}
     tags:
-      - ${{HELMFILE_VERSION}}
+      - 2.14.3-${{HELMFILE_VERSION}}
+    registry: dockerhub
+    when:
+      branch:
+        only:
+          - master
+  PushingHelm3ToDockerRegistry:
+    title: Pushing to Docker Registry
+    type: push
+    candidate: ${{BuildingDockerImageHelm3}}
+    tags:
+      - 3.0.0-${{HELMFILE_VERSION}}
     registry: dockerhub
     when:
       branch:
