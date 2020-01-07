@@ -1,7 +1,7 @@
 kind: step-type
 version: '1.0'
 metadata:
-  name: understood/helmfile-3
+  name: devops/helmfile-3
   version: 0.1.0
   isPublic: false
   description: Use helmfile from Codefresh pipeline
@@ -27,7 +27,7 @@ metadata:
         version: '1.0'
         steps:        
           deploy:
-            type: helmfile-3
+            type: devops/helmfile-3
             arguments:
               WORKING_DIRECTORY: /codefresh/volume/${{CF_REPO_NAME}}
               COMMANDS: diff
