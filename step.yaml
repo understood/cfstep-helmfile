@@ -1,12 +1,12 @@
 kind: step-type
 version: '1.0'
 metadata:
-  name: helmfile-3
+  name: understood/helmfile-3
   version: 0.1.0
-  isPublic: true
+  isPublic: false
   description: Use helmfile from Codefresh pipeline
   sources:
-    - 'https://github.com/codefresh-contrib/cfstep-helmfile'
+    - 'https://github.com/understood/cfstep-helmfile'
   stage: incubating
   maintainers:
     - name: Dustin Van Buskirk
@@ -15,7 +15,7 @@ metadata:
       email: mfrohberg@understood.org
   categories:
     - deployment
-  official: true
+  official: false
   tags: []
   icon:
     type: svg
