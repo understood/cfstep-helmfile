@@ -1,8 +1,8 @@
 kind: step-type
 version: '1.0'
 metadata:
-  name: helmfile
-  version: 0.0.2
+  name: helmfile-3
+  version: 0.1.0
   isPublic: true
   description: Use helmfile from Codefresh pipeline
   sources:
@@ -11,6 +11,8 @@ metadata:
   maintainers:
     - name: Dustin Van Buskirk
       email: dustinvb@codefresh.io
+    - name: Michael Frohberg
+      email: mfrohberg@understood.org
   categories:
     - deployment
   official: true
@@ -25,7 +27,7 @@ metadata:
         version: '1.0'
         steps:        
           deploy:
-            type: helmfile
+            type: helmfile-3
             arguments:
               WORKING_DIRECTORY: /codefresh/volume/${{CF_REPO_NAME}}
               COMMANDS: diff
@@ -58,14 +60,14 @@ spec:
             "HELM_VERSION": {
                 "type": "string",
                 "description": "Version of helmfile binary",
-                "default": "3.0.0",
-                "enum": [ "2.14.3", "3.0.0" ]
+                "default": "3.0.2",
+                "enum": [ "2.14.3", "3.0.2" ]
             },
             "HELMFILE_VERSION": {
                 "type": "string",
                 "description": "Version of helmfile binary",
-                "default": "0.93.2",
-                "enum": [ "0.90.2", "0.90.7", "0.93.2" ]
+                "default": "helm3-v0.98.1",
+                "enum": [ "0.90.2", "0.90.7", "0.93.2", "helm3-v0.98.1" ]
             },
             "HELM_BINARY": {
                 "type": "string",
@@ -206,7 +208,7 @@ spec:
     }
   steps:
     main:
-      name: helmfile
+      name: helmfile-3
       image: 'codefresh-plugins/cfstep-helmfile:${{HELM_VERSION}}-${{HELMFILE_VERSION}}'
       environment:
         - 'COMMANDS=${{COMMANDS}}'
