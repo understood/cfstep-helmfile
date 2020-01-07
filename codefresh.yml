@@ -1,29 +1,63 @@
 version: "1.0"
+stages:
+  - "clone"
+  - "build"
+  - "integration"
+  - "push"
 steps:
   main_clone:
-    title: Cloning main repository...
-    type: git-clone
-    repo: ${{CF_REPO_OWNER}}/${{CF_REPO_NAME}}
-    revision: ${{CF_REVISION}}
-  BuildingDockerImageHelm3:
-    title: Building Docker Image
-    type: build
-    image_name: understood/cfstep-helmfile-3
-    working_directory: ./
-    dockerfile: Dockerfile
+    type: "git-clone"
+    description: "Cloning main repository..."
+    repo: "devops/cfstep-helmfile-3"
+    revision: "${{CF_BRANCH}}"
+    stage: "clone"
+  build:
+    title: "Building Docker Image"
     build_arguments:
-      - HELM_VERSION=3.0.2
+    	- HELM_VERSION=${{HELM_VERSION}}
       - HELMFILE_VERSION=${{HELMFILE_VERSION}}
       - HELM_DIFF_VERSION=${{HELM_DIFF_VERSION}}
       - HELM_SECRETS_VERSION=${{HELM_SECRETS_VERSION}}
-  PushingHelm3ToDockerRegistry:
-    title: Pushing to Docker Registry
-    type: push
-    candidate: ${{BuildingDockerImageHelm3}}
-    tags:
-      - 3.0.2-${{HELMFILE_VERSION}}
-    registry: dockerhub
+      - PYTHON_VERSION=${{PYTHON_VERSION}}
+    type: "build"
+    image_name: "devops/cfstep-helmfile-3"
+    tag: "${{CF_BRANCH_TAG_NORMALIZED}}"
+    dockerfile: "Dockerfile"
+    stage: "build"
+  approval_for_push:
+    type: "pending-approval"
+    title: "Should we run push"
     when:
       branch:
         only:
-          - master
+          - "master"
+    stage: "push"
+  parallel_push:
+    type: "parallel"
+    steps:
+      annotate_build:
+        title: "Annotating Build"
+        image: "${{build}}"
+        working_directory: "IMAGE_WORK_DIR"
+        commands:
+          - "echo Annotating Build..."
+        on_success:
+          metadata:
+            set:
+              - ${{build.imageId}}:
+                  - CF_QUALITY: true
+        on_error:
+          metadata:
+            set:
+              - ${{build.imageId}}:
+                  - CF_QUALITY: false
+      push:
+        title: "Pushing image to cfcr"
+        type: "push"
+        image_name: "understood/cfstep-helmfile"
+        registry: "cfcr"
+        candidate: "${{build}}"
+        tags:
+          - "${{CF_BRANCH_TAG_NORMALIZED}}"
+          - "${{CF_REVISION}}"
+    stage: "push"
