@@ -1,6 +1,6 @@
 ARG HELM_VERSION
 
-FROM codefresh/cfstep-helm:${HELM_VERSION}
+FROM codefresh/cfstep-helm:latest
 
 ARG HELM_VERSION
 ARG HELMFILE_VERSION
