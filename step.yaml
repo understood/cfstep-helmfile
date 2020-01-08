@@ -1,10 +1,10 @@
 kind: step-type
 version: '1.0'
 metadata:
-  name: devops/cfstep-helmfile-3
+  name: understood/helmfile-3
   version: 0.1.0
   isPublic: false
-  description: Use helmfile from Codefresh pipeline
+  description: Updated for helm 3... adds better helmfile support to Codefresh pipeline
   sources:
     - 'https://github.com/understood/cfstep-helmfile'
   stage: incubating
@@ -27,7 +27,7 @@ metadata:
         version: '1.0'
         steps:        
           deploy:
-            type: devops/cfstep-helmfile-3
+            type: understood/helmfile-3
             arguments:
               WORKING_DIRECTORY: /codefresh/volume/${{CF_REPO_NAME}}
               COMMANDS: diff
