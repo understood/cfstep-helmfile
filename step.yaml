@@ -1,8 +1,8 @@
 kind: step-type
 version: '1.0'
 metadata:
-  name: understood/helmfile-3
-  version: 0.1.0
+  name: understood/cfstep-helmfile-3
+  version: 0.2.0
   isPublic: false
   description: Updated for helm 3... adds better helmfile support to Codefresh pipeline
   sources:
@@ -27,7 +27,7 @@ metadata:
         version: '1.0'
         steps:        
           deploy:
-            type: understood/helmfile-3
+            type: understood/cfstep-helmfile-3
             arguments:
               WORKING_DIRECTORY: /codefresh/volume/${{CF_REPO_NAME}}
               COMMANDS: diff
@@ -209,7 +209,7 @@ spec:
   steps:
     main:
       name: helmfile-3
-      image: 'codefresh-plugins/cfstep-helmfile:${{HELM_VERSION}}-${{HELMFILE_VERSION}}'
+      image: 'understood/cfstep-helmfile-3:master'
       environment:
         - 'COMMANDS=${{COMMANDS}}'
         - 'WORKING_DIRECTORY=${{WORKING_DIRECTORY}}'
