@@ -55,7 +55,7 @@ steps:
         title: "Pushing image to cfcr"
         type: "push"
         image_name: "cfstep-helmfile-3"
-        registry: "cfcr"
+        registry: "codefresh-registry"
         candidate: "${{build}}"
         tags:
           - "${{CF_BRANCH_TAG_NORMALIZED}}"
