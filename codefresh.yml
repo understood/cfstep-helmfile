@@ -14,11 +14,11 @@ steps:
   build:
     title: "Building Docker Image"
     build_arguments:
-    	- HELM_VERSION=${{HELM_VERSION}}
-      - HELMFILE_VERSION=${{HELMFILE_VERSION}}
-      - HELM_DIFF_VERSION=${{HELM_DIFF_VERSION}}
-      - HELM_SECRETS_VERSION=${{HELM_SECRETS_VERSION}}
-      - PYTHON_VERSION=${{PYTHON_VERSION}}
+      - "HELM_VERSION=${{HELM_VERSION}}"
+      - "HELMFILE_VERSION=${{HELMFILE_VERSION}}"
+      - "HELM_DIFF_VERSION=${{HELM_DIFF_VERSION}}"
+      - "HELM_SECRETS_VERSION=${{HELM_SECRETS_VERSION}}"
+      - "PYTHON_VERSION=${{PYTHON_VERSION}}"
     type: "build"
     image_name: "understood/cfstep-helmfile-3"
     tag: "${{CF_BRANCH_TAG_NORMALIZED}}"
