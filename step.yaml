@@ -209,7 +209,7 @@ spec:
   steps:
     main:
       name: understood/cfstep-helmfile-3
-      image: 'understood/cfstep-helmfile:master'
+      image: 'cfstep-helmfile-3:master'
       environment:
         - 'COMMANDS=${{COMMANDS}}'
         - 'WORKING_DIRECTORY=${{WORKING_DIRECTORY}}'
