@@ -8,7 +8,7 @@ steps:
   main_clone:
     type: "git-clone"
     description: "Cloning main repository..."
-    repo: "devops/cfstep-helmfile-3"
+    repo: "understood/cfstep-helmfile"
     revision: "${{CF_BRANCH}}"
     stage: "clone"
   build:
@@ -20,7 +20,7 @@ steps:
       - HELM_SECRETS_VERSION=${{HELM_SECRETS_VERSION}}
       - PYTHON_VERSION=${{PYTHON_VERSION}}
     type: "build"
-    image_name: "devops/cfstep-helmfile-3"
+    image_name: "understood/cfstep-helmfile-3"
     tag: "${{CF_BRANCH_TAG_NORMALIZED}}"
     dockerfile: "Dockerfile"
     stage: "build"
@@ -54,7 +54,7 @@ steps:
       push:
         title: "Pushing image to cfcr"
         type: "push"
-        image_name: "understood/cfstep-helmfile"
+        image_name: "understood/cfstep-helmfile-3"
         registry: "cfcr"
         candidate: "${{build}}"
         tags:
