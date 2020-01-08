@@ -208,8 +208,8 @@ spec:
     }
   steps:
     main:
-      name: helmfile-3
-      image: 'understood/cfstep-helmfile-3:master'
+      name: understood/cfstep-helmfile-3
+      image: 'understood/cfstep-helmfile:master'
       environment:
         - 'COMMANDS=${{COMMANDS}}'
         - 'WORKING_DIRECTORY=${{WORKING_DIRECTORY}}'
