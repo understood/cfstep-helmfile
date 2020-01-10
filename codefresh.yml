@@ -21,7 +21,7 @@ steps:
       - "PYTHON_VERSION=${{PYTHON_VERSION}}"
     type: "build"
     image_name: "cfstep-helmfile-3"
-    tag: "${{CF_BRANCH_TAG_NORMALIZED}}"
+    tag: "${{CF_REVISION}}"
     dockerfile: "Dockerfile"
     stage: "build"
   approval_for_push:
@@ -58,6 +58,6 @@ steps:
         registry: "codefresh-registry"
         candidate: "${{build}}"
         tags:
-          - "${{CF_BRANCH_TAG_NORMALIZED}}"
           - "${{CF_REVISION}}"
+          - "latest"
     stage: "push"
