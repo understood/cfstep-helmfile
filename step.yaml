@@ -209,7 +209,7 @@ spec:
   steps:
     main:
       name: understood/cfstep-helmfile-3
-      image: 'r.cfcr.io/understood/cfstep-helmfile-3'
+      image: 'gcr.io/udotorg-source/cfstep-helmfile-3'
       environment:
         - 'COMMANDS=${{COMMANDS}}'
         - 'WORKING_DIRECTORY=${{WORKING_DIRECTORY}}'
