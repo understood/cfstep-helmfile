@@ -2,7 +2,7 @@ kind: step-type
 version: '1.0'
 metadata:
   name: understood/cfstep-helmfile-3
-  version: 0.2.0
+  version: 1.0.0
   isPublic: false
   description: Updated for helm 3... adds better helmfile support to Codefresh pipeline
   sources:
@@ -60,14 +60,14 @@ spec:
             "HELM_VERSION": {
                 "type": "string",
                 "description": "Version of helmfile binary",
-                "default": "3.0.2",
-                "enum": [ "2.14.3", "3.0.2" ]
+                "default": "3.2.1",
+                "enum": [ "2.14.3", "3.0.2", "3.2.1" ]
             },
             "HELMFILE_VERSION": {
                 "type": "string",
                 "description": "Version of helmfile binary",
-                "default": "0.98.1",
-                "enum": [ "0.90.2", "0.90.7", "0.93.2", "0.98.1" ]
+                "default": "0.108.0",
+                "enum": [ "0.90.2", "0.90.7", "0.93.2", "0.98.1", "0.108.0" ]
             },
             "HELM_BINARY": {
                 "type": "string",
